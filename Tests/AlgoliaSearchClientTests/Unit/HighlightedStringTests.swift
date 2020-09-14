@@ -33,6 +33,18 @@ class HighlightedStringTests: XCTestCase {
       XCTAssertEqual(expectedHighlightedPart, extractHighlightedPart(from: decodedHighlighted))
 
     }
+  
+    struct MarkupString: Codable {
+      let source: String
+      let markup: HighlightedString
+    }
+  
+    func testWithHTMLString() throws {
+      let data = try Data(filename: "HighlightedHTML.json")
+      let searchResponse = try JSONDecoder().decode(MarkupString.self, from: data)
+      let searchResponseJSON = try JSON(searchResponse)
+      print(searchResponseJSON)
+    }
 
 }
 
